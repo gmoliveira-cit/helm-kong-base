@@ -30,12 +30,12 @@ spec:
         - name: KONG_PG_HOST
           valueFrom:
             configMapKeyRef:
-              name: postgres
+              name: {{include "postgres.name" .}}
               key: host
         - name: KONG_PG_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: postgres
+              name: {{include "postgres.name" .}}
               key: password
       containers:
       - name: kong-proxy
@@ -44,12 +44,12 @@ spec:
         - name: KONG_PG_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: postgres
+              name: {{include "postgres.name" .}}
               key: password
         - name: KONG_PG_HOST
           valueFrom:
             configMapKeyRef:
-              name: postgres
+              name: {{include "postgres.name" .}}
               key: host
         - name: KONG_PROXY_ACCESS_LOG
           value: "/dev/stdout"

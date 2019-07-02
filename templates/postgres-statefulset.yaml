@@ -15,7 +15,7 @@ spec:
         app: postgres
     spec:
       containers:
-      - name: postgres
+      - name: {{include "postgres.name" .}}
         image: postgres:9.5
         volumeMounts:
         - name: datadir
@@ -25,17 +25,17 @@ spec:
         - name: POSTGRES_USER
           valueFrom:
             secretKeyRef:
-              name: postgres
+              name: {{include "postgres.name" .}}
               key: username
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: postgres
+              name: {{include "postgres.name" .}}
               key: password
         - name: POSTGRES_DB
           valueFrom:
             secretKeyRef:
-              name: postgres
+              name: {{include "postgres.name" .}}
               key: database
         - name: PGDATA
           value: /var/lib/postgresql/data/pgdata

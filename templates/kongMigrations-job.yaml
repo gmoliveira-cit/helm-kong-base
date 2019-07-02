@@ -15,12 +15,12 @@ spec:
         - name: KONG_PG_HOST
           valueFrom:
             configMapKeyRef:
-              name: postgres
+              name: {{include "postgres.name" .}}
               key: host
         - name: KONG_PG_PORT
           valueFrom:
             configMapKeyRef:
-              name: postgres
+              name: {{include "postgres.name" .}}
               key: port
         command: [ "/bin/sh", "-c", "until nc -zv $KONG_PG_HOST $KONG_PG_PORT -w1; do echo 'waiting for db'; sleep 1; done" ]
       containers:
@@ -30,17 +30,17 @@ spec:
         - name: KONG_PG_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: postgres
+              name: {{include "postgres.name" .}}
               key: password
         - name: KONG_PG_HOST
           valueFrom:
             configMapKeyRef:
-              name: postgres
+              name: {{include "postgres.name" .}}
               key: host
         - name: KONG_PG_PORT
           valueFrom:
             configMapKeyRef:
-              name: postgres
+              name: {{include "postgres.name" .}}
               key: host
         command: [ "/bin/sh", "-c", "kong migrations bootstrap" ]
       restartPolicy: OnFailure

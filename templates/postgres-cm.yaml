@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: postgres
+  name: {{ include "kong-base.name" . }}-postgres
   namespace: {{.Release.Namespace}}
 data:
   host: {{include "kong-base.name" . }}-postgres

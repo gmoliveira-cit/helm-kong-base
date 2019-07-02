@@ -1,0 +1,7 @@
+kong:
+  electionId: ingress-controller-leader
+  ingressClass: kong
+
+postgres:
+  user: kong
+  password: kong

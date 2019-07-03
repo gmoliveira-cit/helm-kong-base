@@ -57,6 +57,8 @@ spec:
           value: "/dev/stderr"
         - name: KONG_ADMIN_LISTEN
           value: 'off'
+        - name: KONG_NGINX_HTTP_INCLUDE
+          value: /etc/prometheus-server.conf
         ports:
         - name: proxy
           containerPort: 8000
@@ -64,7 +66,21 @@ spec:
         - name: proxy-ssl
           containerPort: 8443
           protocol: TCP
+        - name: prometheus
+          containerPort: 9542
+          protocol: TCP
         lifecycle:
           preStop:
             exec:
               command: [ "/bin/sh", "-c", "kong quit" ]
+        volumeMounts:
+          - name: prometheus-server
+            mountPath: /etc/prometheus-server.conf
+            subPath: prometheus-server.conf
+      volumes:
+        - name: prometheus-server
+          configMap:
+            name: {{.Release.Name}}-prometheus-server
+            items:
+              - key: prometheus-server.conf
+                path: prometheus-server.conf

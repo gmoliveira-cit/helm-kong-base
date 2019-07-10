@@ -7,6 +7,8 @@ postgres:
   password: kong
 
 prometheus:
+  nameOverride: "kong-prometheus"
+
   serviceAccounts:
     alertmanager:
       create: false

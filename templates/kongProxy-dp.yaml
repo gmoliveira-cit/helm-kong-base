@@ -7,8 +7,8 @@ spec:
   template:
     metadata:
       annotations:
-        prometheus.io/scrape: true
-        prometheus.io/port: 9542
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9542"
       labels:
         name: {{ include "kong-base.name" .}}-kong
         app: kong
